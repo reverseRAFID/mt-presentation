@@ -1,0 +1,17 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>shot</title>
+<style>html,body{margin:0;padding:0;overflow:hidden;background:#fffbf7}iframe{border:0;display:block}</style></head>
+<body><script>
+  const q = new URLSearchParams(location.search)
+  document.write('<iframe src="' + (q.get('u')||'/?static#1') + '" style="width:1920px;height:1080px"></iframe>')
+  document.write('<img src="http://127.0.0.1:5999/' + (q.get('w')||6) + '" style="position:fixed;left:-10px;top:-10px;width:1px;height:1px">')
+  setTimeout(function () {
+    const d = document.querySelector('iframe').contentDocument
+    d.querySelectorAll('canvas').forEach(function (c) {
+      let url; try { url = c.toDataURL() } catch (e) { return }
+      const r = c.getBoundingClientRect(); const img = d.createElement('img'); img.src = url
+      img.style.cssText = 'position:fixed;left:'+r.left+'px;top:'+r.top+'px;width:'+r.width+'px;height:'+r.height+'px;z-index:5'
+      d.body.appendChild(img)
+    })
+  }, Number(q.get('c') || 3500))
+</script></body></html>
